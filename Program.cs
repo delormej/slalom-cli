@@ -233,7 +233,8 @@ namespace SkiConsole
             VideoTasks video = new VideoTasks();
             DateTime creation = video.GetCreationTime(inputFile);
             Console.WriteLine(
-                $"File: {inputFile}, video creationtime {creation.ToShortDateString()}");
+                $"File: {inputFile}, video creationtime " +
+                creation.ToString("MM/dd/yyyy h:mm tt"));
         }
     }
 }
