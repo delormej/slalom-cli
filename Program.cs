@@ -76,12 +76,17 @@ namespace SkiConsole
             {
                 UploadYouTube(args[1]);
             }
+            else if (args[0] == "-c" && args.Length >= 2)
+            {
+                PrintCreationTime(args[1]);
+            }
             else
                 ShowUsage();
         }
 
         private static void ShowUsage()
         {
+            PrintVersion();
             Console.WriteLine("Usage:\n\t" +
                                 "Download a video from cloud storage:\n\t\t" +
                                 "ski -d https://jjdelormeski.blob.core.windows.net/videos/GOPR0194.MP4)\n\t" +
@@ -98,8 +103,16 @@ namespace SkiConsole
                                 "Download video, process and upload metadata.\n\t\t" +
                                 "ski -p https://jjdelormeski.blob.core.windows.net/videos/GOPR0194.MP4\n" +
                                 "Update video to YouTube.\n\t\t" +
-                                "ski -y 2018-06-20/GOPR0194.MP4"
+                                "ski -y 2018-06-20/GOPR0194.MP4\n" +
+                                "Print video creation time.\n\t\t" +
+                                "ski -c 2018-06-20/GOPR0194.MP4"                                 
                             );
+        }
+
+        private static void PrintVersion()
+        {
+            SkiVideoEntity video = new SkiVideoEntity();
+            Console.WriteLine(video.SlalomTrackerVersion);
         }
 
         private static string DownloadAndCreateImage(string url)
@@ -213,6 +226,14 @@ namespace SkiConsole
             {
                 Console.WriteLine("\t{0}\\{1}", e.PartitionKey, e.RowKey);
             }
+        }
+
+        private static void PrintCreationTime(string inputFile)
+        {
+            VideoTasks video = new VideoTasks();
+            DateTime creation = video.GetCreationTime(inputFile);
+            Console.WriteLine(
+                $"File: {inputFile}, video creationtime {creation.ToShortDateString()}");
         }
     }
 }
