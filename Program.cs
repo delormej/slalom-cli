@@ -127,15 +127,6 @@ namespace SkiConsole
             return imagePath;
         }
 
-        private static void ProcessVideoMetadata(string url)
-        {
-            string localPath = Storage.DownloadVideo(url);
-            string json = Extract.ExtractMetadata(localPath);
-            Storage storage = new Storage();
-            string blobName = Storage.GetBlobName(localPath);
-            storage.AddMetadata(blobName, json);
-        }
-
         private static void UploadYouTube(string localPath)
         {
             YouTube youTube = new YouTube();
