@@ -28,14 +28,7 @@ namespace SkiConsole
                 Console.ReadKey();
             }
 
-            if (args[0] == "-u" && args.Length >= 2)
-            {
-                // eg. ski -u //files/Go Pro/2018-08-20"
-                // OR individual file:
-                // ski -u //files/Go Pro/2018-08-20/GOPR0565.MP4
-                UploadVideos(args[1]);
-            }
-            else if (args[0] == "-d" && args.Length >= 2)
+            if (args[0] == "-d" && args.Length >= 2)
             {
                 // eg. ski -d https://jjdelormeski.blob.core.windows.net/videos/GOPR0194.MP4
                 DownloadVideo(args[1]);
@@ -90,8 +83,6 @@ namespace SkiConsole
             Console.WriteLine("Usage:\n\t" +
                                 "Download a video from cloud storage:\n\t\t" +
                                 "ski -d https://jjdelormeski.blob.core.windows.net/videos/GOPR0194.MP4)\n\t" +
-                                "Upload video or directory of videos:\n\t\t" +
-                                "ski -u //files/Go Pro/2018-08-20\n\t" +
                                 "Extract metadata from MP4 GOPRO file:\n\t\t" +
                                 "ski -e 2018-06-20/GOPR0194.MP4 GOPR0194.json\n\t" +
                                 "List all metadata stored for videos:\n\t\t" +
@@ -131,21 +122,6 @@ namespace SkiConsole
         {
             YouTube youTube = new YouTube();
             youTube.Upload(localPath);
-        }
-
-        private static void UploadVideos(string localPath)
-        {
-            Storage storage = new Storage();
-            if (IsDirectory(localPath))
-                storage.UploadVideos(localPath);
-            else
-                UploadVideo(localPath);
-        }
-
-        public static void UploadVideo(string localPath)
-        {
-            Storage storage = new Storage();
-            string url = storage.UploadVideo(localPath);
         }
 
         private static void DownloadVideo(string url)
