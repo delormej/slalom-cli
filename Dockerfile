@@ -1,4 +1,5 @@
 FROM microsoft/dotnet:2.1-sdk AS build
+#FROM dotnet-debug
 ARG nuget
 
 # Install Video Processing Libraries in FFMPEG
@@ -6,9 +7,9 @@ RUN apt update && \
     apt install ffmpeg -y
 
 COPY ./ /ski
-WORKDIR /ski/
+WORKDIR /ski/bin
 
-# Install nuget credential provider, to pull dependencies from Azure Artifacts feed.
+# Install nuget credential provider, to pull dependencies from Azure Artifacts feed.  This feed is specified in Nuget.config.  
 RUN curl -s https://raw.githubusercontent.com/microsoft/artifacts-credprovider/master/helpers/installcredprovider.sh | bash
 ENV VSS_NUGET_EXTERNAL_FEED_ENDPOINTS=$nuget
 
@@ -16,8 +17,11 @@ ENV VSS_NUGET_EXTERNAL_FEED_ENDPOINTS=$nuget
 # Set to build a self-contained linux binary (no dotnet required).
 # use -r linux-musl-x64 to target alpine
 # if using alpine, we need to recompile gpmfdemo
-RUN dotnet publish /ski/SkiConsole.csproj -c Release --self-contained true -r linux-x64 -o /ski/bin --source https://pkgs.dev.azure.com/jasondel/_packaging/SlalomTracker/nuget/v3/index.json && \
+RUN dotnet publish /ski/SkiConsole.csproj -c Release --self-contained true -r linux-x64 -o /ski/bin  && \
     chmod +x /ski/bin/gpmfdemo
+
+# Copy debug libraries
+#COPY ./ref/netstandard2.0/*.pdb ./bin/
 
 # Alpline looks like smallest, but gpmfdemo needs to be rebuilt for it
 #apk add build-base
