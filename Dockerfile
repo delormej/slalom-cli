@@ -6,6 +6,8 @@ ARG nuget
 RUN apt update && \
     apt install ffmpeg -y
 
+# Make the ref dir regardless of whether we copy locally into it or not or nuget will fail on restore attempt.
+RUN mkdir -p /ski/ref
 COPY ./ /ski
 WORKDIR /ski/bin
 
