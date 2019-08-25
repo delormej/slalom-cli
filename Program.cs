@@ -92,9 +92,9 @@ namespace SkiConsole
                                 "ski -i https://delormej.blob.core.windows.net/ski/2018-08-24/GOPR0565.json 0 22\n\t\t" +
                                 "ski -i https://jjdelormeski.blob.core.windows.net/videos/GOPR0194.MP4\n\t" +
                                 "Download video, process and upload metadata.\n\t\t" +
-                                "ski -p https://jjdelormeski.blob.core.windows.net/videos/GOPR0194.MP4\n" +
+                                "ski -p https://jjdelormeski.blob.core.windows.net/videos/GOPR0194.MP4\n\t" +
                                 "Update video to YouTube.\n\t\t" +
-                                "ski -y 2018-06-20/GOPR0194.MP4\n" +
+                                "ski -y 2018-06-20/GOPR0194.MP4\n\t" +
                                 "Print video creation time.\n\t\t" +
                                 "ski -c 2018-06-20/GOPR0194.MP4"                                 
                             );
