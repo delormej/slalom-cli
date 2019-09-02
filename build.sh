@@ -1,6 +1,6 @@
 #!/bin/bash
 #VSS_NUGET_EXTERNAL_FEED_ENDPOINTS="{'endpointCredentials': [{'endpoint':'https://pkgs.dev.azure.com/jasondel/_packaging/SlalomTracker/nuget/v3/index.json', 'password':'zdkrbk4vjy4pficjrgycqkwrjwdmjnpx5lisyqc7upo3pug7jwoa'}]}"
-#docker build -t skiconsole -f Dockerfile --build-arg nuget=$VSS_NUGET_EXTERNAL_FEED_ENDPOINTS .
+#docker build -t skiconsole -f Dockerfile --build-arg nuget=\"$VSS_NUGET_EXTERNAL_FEED_ENDPOINTS\" .
 
 #
 # This file used for DEBUG build
